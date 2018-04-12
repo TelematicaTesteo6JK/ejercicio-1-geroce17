@@ -20,15 +20,75 @@ float pago_estacionamiento(int horas)
 	return cant;
 }
 
+string passValidation(int cant, int expectR){
+	string response = "falló";
+	if( cant == expectR ) {
+		return response = "Pasó";
+  }
+	else {
+		return response;
+	}
+}
+
 void casos_de_prueba(){
 
     cout << "TEST CASES" << endl;
-    // Agrega tus casos de prueba
+		int Nhoras, cantR, expectR;
+		string pass_fail, expectRS;
+		string line = "";
 
+		cantR = pago_estacionamiento(Nhoras);
+		cout << "Particion de equivalencia" << endl;
+		for (int i = 0; i < 3; i++) {
+			Nhoras = cantR = expectR = 0;
+			pass_fail = expectRS = "";
+			cin >> Nhoras;
+			if(Nhoras < 0){
+				cin >> expectRS;
+				pass_fail = "falló";
+				line +=  to_string(Nhoras) + "       " + expectRS + "       " + to_string(cantR) + "       " + pass_fail + "\n\r";
+			}
+			else
+			{
+				cin >> expectR;
+				cantR = pago_estacionamiento(Nhoras);
+				pass_fail = passValidation(cantR, expectR);
+				line +=  to_string(Nhoras) + "       " + to_string(expectR) + "       " + to_string(cantR) + "       " + pass_fail + "\n\r";
+			}
+		}
+		cout << "test data     expected result      actual result         pass/fail" << endl;
+		cout << line <<endl;
 
-
-    cout << endl;
-
+		cantR = pago_estacionamiento(Nhoras);
+		int limites[] = {
+			-1,
+			0,
+			5,
+			6,
+			10,
+			12
+		};
+		cout << "Análisis de valores límite" << endl;
+		for (int i = 0; i < 6; i++) {
+			Nhoras = limites[i];
+			cantR = expectR = 0;
+			pass_fail = expectRS = "";
+			cout << Nhoras;
+			if(Nhoras < 0){
+				cin >> expectRS;
+				pass_fail = "falló";
+				line +=  to_string(Nhoras) + "       " + expectRS + "       " + to_string(cantR) + "       " + pass_fail + "\n\r";
+			}
+			else
+			{
+				cin >> expectR;
+				cantR = pago_estacionamiento(Nhoras);
+				pass_fail = passValidation(cantR, expectR);
+				line +=  to_string(Nhoras) + "       " + to_string(expectR) + "       " + to_string(cantR) + "       " + pass_fail + "\n\r";
+			}
+		}
+		cout << "test data     expected result      actual result         pass/fail" << endl;
+		cout << line <<endl;
 }
 
 int main()
